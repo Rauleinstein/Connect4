@@ -635,3 +635,154 @@
 	"player.h"
 	"environment.h"
 
+1399842324 source:c:\users\raul\dropbox\universidad\grado\2º cuatrimestre\ia\practica\practica 3\4enraya\connect4\conexion.cpp
+	<iostream>
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<winsock2.h>
+	"conexion.h"
+
+1399479412 c:\users\raul\dropbox\universidad\grado\2º cuatrimestre\ia\practica\practica 3\4enraya\connect4\conexion.h
+	<winsock2.h>
+
+1399672746 source:c:\users\raul\dropbox\universidad\grado\2º cuatrimestre\ia\practica\practica 3\4enraya\connect4\environment.cpp
+	<iostream>
+	<iomanip>
+	<string>
+	"stdlib.h"
+	"environment.h"
+	"include/GL/glui.h"
+
+1400002438 c:\users\raul\dropbox\universidad\grado\2º cuatrimestre\ia\practica\practica 3\4enraya\connect4\environment.h
+	<string>
+	<fstream>
+
+1208862122 c:\users\raul\dropbox\universidad\grado\2º cuatrimestre\ia\practica\practica 3\4enraya\connect4\include\gl\glui.h
+	"openglut.h"
+	<cstdlib>
+	<cstdio>
+	<cstring>
+	<string>
+	<vector>
+
+1207925790 c:\users\raul\dropbox\universidad\grado\2º cuatrimestre\ia\practica\practica 3\4enraya\connect4\include\gl\openglut.h
+	"openglut_std.h"
+	"openglut_ext.h"
+
+1208463942 c:\users\raul\dropbox\universidad\grado\2º cuatrimestre\ia\practica\practica 3\4enraya\connect4\include\gl\openglut_std.h
+	<windows.h>
+	"gl.h"
+	"glu.h"
+
+1107063320 c:\users\raul\dropbox\universidad\grado\2º cuatrimestre\ia\practica\practica 3\4enraya\connect4\include\gl\gl.h
+
+1208464014 c:\users\raul\dropbox\universidad\grado\2º cuatrimestre\ia\practica\practica 3\4enraya\connect4\include\gl\glu.h
+	<stddef.h>
+	"gl.h"
+
+1207925790 c:\users\raul\dropbox\universidad\grado\2º cuatrimestre\ia\practica\practica 3\4enraya\connect4\include\gl\openglut_ext.h
+
+1399842176 source:c:\users\raul\dropbox\universidad\grado\2º cuatrimestre\ia\practica\practica 3\4enraya\connect4\gui.cpp
+	<fstream>
+	<sstream>
+	<iomanip>
+	<iostream>
+	<windows.h>
+	"GUI.h"
+	<stdlib.h>
+	"environment.h"
+	"player.h"
+	"conexion.h"
+
+1399673850 c:\users\raul\dropbox\universidad\grado\2º cuatrimestre\ia\practica\practica 3\4enraya\connect4\gui.h
+	<fstream>
+	"include/GL/glui.h"
+
+1335342564 c:\users\raul\dropbox\universidad\grado\2º cuatrimestre\ia\practica\practica 3\4enraya\connect4\player.h
+	"environment.h"
+
+1152204176 source:c:\users\raul\dropbox\universidad\grado\2º cuatrimestre\ia\practica\practica 3\4enraya\connect4\include\glui.cpp
+	"glui_internal_control.h"
+
+1152204812 c:\users\raul\dropbox\universidad\grado\2º cuatrimestre\ia\practica\practica 3\4enraya\connect4\include\glui_internal_control.h
+	"GL/glui.h"
+	"glui_internal.h"
+
+1120532240 c:\users\raul\dropbox\universidad\grado\2º cuatrimestre\ia\practica\practica 3\4enraya\connect4\include\glui_internal.h
+	<cstdio>
+	<cmath>
+
+1152204176 source:c:\users\raul\dropbox\universidad\grado\2º cuatrimestre\ia\practica\practica 3\4enraya\connect4\include\glui_bitmap_img_data.cpp
+
+1152204176 source:c:\users\raul\dropbox\universidad\grado\2º cuatrimestre\ia\practica\practica 3\4enraya\connect4\include\glui_bitmaps.cpp
+	"GL/glui.h"
+	"glui_internal.h"
+	<cassert>
+
+1152204176 source:c:\users\raul\dropbox\universidad\grado\2º cuatrimestre\ia\practica\practica 3\4enraya\connect4\include\glui_button.cpp
+	"glui_internal_control.h"
+
+1152204176 source:c:\users\raul\dropbox\universidad\grado\2º cuatrimestre\ia\practica\practica 3\4enraya\connect4\include\glui_column.cpp
+	"glui_internal_control.h"
+
+1152204176 source:c:\users\raul\dropbox\universidad\grado\2º cuatrimestre\ia\practica\practica 3\4enraya\connect4\include\glui_control.cpp
+	"glui_internal_control.h"
+
+1152204176 source:c:\users\raul\dropbox\universidad\grado\2º cuatrimestre\ia\practica\practica 3\4enraya\connect4\include\glui_edittext.cpp
+	"glui_internal_control.h"
+	<cassert>
+
+1240417432 source:c:\users\raul\dropbox\universidad\grado\2º cuatrimestre\ia\practica\practica 3\4enraya\connect4\include\glui_filebrowser.cpp
+	"GL/glui.h"
+	"glui_internal.h"
+	<sys/types.h>
+	<dirent.h>
+	<unistd.h>
+	<windows.h>
+	<sys/stat.h>
+	<iostream>
+
+1152204176 source:c:\users\raul\dropbox\universidad\grado\2º cuatrimestre\ia\practica\practica 3\4enraya\connect4\include\glui_list.cpp
+	"glui_internal_control.h"
+	<cmath>
+	<sys/timeb.h>
+
+1120538608 source:c:\users\raul\dropbox\universidad\grado\2º cuatrimestre\ia\practica\practica 3\4enraya\connect4\include\glui_node.cpp
+	"GL/glui.h"
+	"glui_internal.h"
+
+1208460170 source:c:\users\raul\dropbox\universidad\grado\2º cuatrimestre\ia\practica\practica 3\4enraya\connect4\include\glui_panel.cpp
+	"glui_internal_control.h"
+
+1152204176 source:c:\users\raul\dropbox\universidad\grado\2º cuatrimestre\ia\practica\practica 3\4enraya\connect4\include\glui_radio.cpp
+	"glui_internal_control.h"
+	<cassert>
+
+1152204176 source:c:\users\raul\dropbox\universidad\grado\2º cuatrimestre\ia\practica\practica 3\4enraya\connect4\include\glui_rollout.cpp
+	"glui_internal_control.h"
+
+1152204176 source:c:\users\raul\dropbox\universidad\grado\2º cuatrimestre\ia\practica\practica 3\4enraya\connect4\include\glui_scrollbar.cpp
+	"glui_internal_control.h"
+	<cmath>
+	<cassert>
+
+1152204176 source:c:\users\raul\dropbox\universidad\grado\2º cuatrimestre\ia\practica\practica 3\4enraya\connect4\include\glui_spinner.cpp
+	"glui_internal_control.h"
+	<cmath>
+	<cassert>
+
+1152204176 source:c:\users\raul\dropbox\universidad\grado\2º cuatrimestre\ia\practica\practica 3\4enraya\connect4\include\glui_statictext.cpp
+	"glui_internal_control.h"
+
+1120538608 source:c:\users\raul\dropbox\universidad\grado\2º cuatrimestre\ia\practica\practica 3\4enraya\connect4\include\glui_string.cpp
+	"GL/glui.h"
+	<stdarg.h>
+
+1120538608 source:c:\users\raul\dropbox\universidad\grado\2º cuatrimestre\ia\practica\practica 3\4enraya\connect4\include\glui_window.cpp
+	"GL/glui.h"
+	"glui_internal.h"
+
+1236164460 source:c:\users\raul\dropbox\universidad\grado\2º cuatrimestre\ia\practica\practica 3\4enraya\connect4\main.cpp
+	"GUI.h"
+

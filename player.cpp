@@ -58,6 +58,67 @@ double ValoracionTest(const Environment &estado, int jugador){
 double Valoracion(const Environment &estado, int jugador){
 }
 
+/** \brief Función Poda_AlfaBeta implementa el algoritmo Minimax con la poda alfa-beta. Se ha implementado recursivamente
+ * para que vaya recoriendo el arbol en profundidad.
+ *
+ * \param actual_ Nodo raiz desde donde vamos a desarrollar el algoritmo
+ * \param jugador_ Jugador a Maximizar
+ * \param profundidad Profundidad maxima del algoritmo
+ * \param accion Acción que recomienda la poda alfa beta respecto a la estrategia
+ * \param alpha Valor de la mejor opción hasta el momento a lo largo del camino para MAX
+ * \param beta Valor de la mejor opción hasta el momento a lo largo del camino para MIN
+ * \return Devuelve un doble con el valor que va generando necesario al ser una función recursiva
+ *
+ */
+double Poda_AlfaBeta(Environment actual_, int jugador_, int a, int profundidad, Environment::ActionType accion, double alpha, double beta)
+{
+    cout << "Poda_AlfaBeta a profundidad = " << profundidad << endl;
+    double alphaaux=99999999999, betaaux=99999999999;
+    Environment nextEnv;
+    int act = -1;
+    if(profundidad == 0) //Si la profundidad es 0 se devuelve la ValoracionTest
+    {
+        cout << "PROFUNDIDAD == 0" << endl;
+        return ValoracionTest(actual_, jugador_);
+    }
+    /*if(ValoracionTest(actual_, jugador_) == 99999999.0)
+    {
+        cout << "Jugador Actual GANA" << endl;
+        return 99999999.0;
+    }
+    if(ValoracionTest(actual_, jugador_) == -99999999.0)
+    {
+        cout << "Jugador Actual PIERDE" << endl;
+        return -99999999.0;
+    }*/
+    if(jugador_){
+        for(int i=0; i<7; i++){
+            act = i-1;
+            cout << "Iteración = " << i << endl;
+            cout << "Siguente MOVIMIENTO de MAX = " << act << endl;
+            nextEnv = actual_.GenerateNextMove(act);
+            alphaaux = Poda_AlfaBeta(nextEnv, 0, a, profundidad-1, accion, alpha, beta);
+            if(alphaaux > alpha)
+                    alpha = alphaaux;
+            if(beta<alpha)
+                i=8;
+        }
+        return alpha;
+    }
+    else
+    {
+        for(int i=0; i<7; i++){
+            act = i-1;
+            cout << "Siguente MOVIMIENTO de MIN = " << act << endl;
+            betaaux = Poda_AlfaBeta(actual_.GenerateNextMove(act), jugador_, a, profundidad-1, accion, alpha, beta);
+            if(betaaux < beta)
+                    beta = betaaux;
+            if(beta<alpha)
+                i=8;
+        }
+        return beta;
+    }
+}
 
 
 
@@ -146,8 +207,8 @@ Environment::ActionType Player::Think(){
 
     // Opcion: Poda AlfaBeta
     // NOTA: La parametrizacion es solo orientativa
-    // valor = Poda_AlfaBeta(actual_, jugador_, 0, PROFUNDIDAD_ALFABETA, accion, alpha, beta);
-    //cout << "Valor MiniMax: " << valor << "  Accion: " << actual_.ActionStr(accion) << endl;
+     valor = Poda_AlfaBeta(actual_, jugador_, 0, PROFUNDIDAD_ALFABETA, accion, alpha, beta);
+    cout << "Valor MiniMax: " << valor << "  Accion: " << actual_.ActionStr(accion) << endl;
 
     return accion;
 }
