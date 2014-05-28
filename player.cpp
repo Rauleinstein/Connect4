@@ -70,55 +70,60 @@ double Valoracion(const Environment &estado, int jugador){
  * \return Devuelve un doble con el valor que va generando necesario al ser una función recursiva
  *
  */
-double Poda_AlfaBeta(Environment actual_, int jugador_, int a, int profundidad, Environment::ActionType accion, double alpha, double beta)
+ static int contador=0;
+double Poda_AlfaBeta(const Environment &actual_, int jugador_, int profundidad, int proflimite, Environment::ActionType &accion, double alpha, double beta)
 {
-    cout << "Poda_AlfaBeta a profundidad = " << profundidad << endl;
-    double alphaaux=99999999999, betaaux=99999999999;
+    contador++;
     Environment nextEnv;
+    double aux;
     int act = -1;
-    if(profundidad == 0) //Si la profundidad es 0 se devuelve la ValoracionTest
+    int i, ganador = actual_.RevisarTablero();
+    if(profundidad == proflimite ||  ganador!=0) //Si la profundidad es 0 se devuelve la ValoracionTest
     {
-        cout << "PROFUNDIDAD == 0" << endl;
         return ValoracionTest(actual_, jugador_);
-    }
-    /*if(ValoracionTest(actual_, jugador_) == 99999999.0)
-    {
-        cout << "Jugador Actual GANA" << endl;
-        return 99999999.0;
-    }
-    if(ValoracionTest(actual_, jugador_) == -99999999.0)
-    {
-        cout << "Jugador Actual PIERDE" << endl;
-        return -99999999.0;
-    }*/
-    if(jugador_){
-        for(int i=0; i<7; i++){
-            act = i-1;
-            cout << "Iteración = " << i << endl;
-            cout << "Siguente MOVIMIENTO de MAX = " << act << endl;
-            nextEnv = actual_.GenerateNextMove(act);
-            alphaaux = Poda_AlfaBeta(nextEnv, 0, a, profundidad-1, accion, alpha, beta);
-            if(alphaaux > alpha)
-                    alpha = alphaaux;
-            if(beta<alpha)
-                i=8;
-        }
-        return alpha;
     }
     else
     {
-        for(int i=0; i<7; i++){
-            act = i-1;
-            cout << "Siguente MOVIMIENTO de MIN = " << act << endl;
-            betaaux = Poda_AlfaBeta(actual_.GenerateNextMove(act), jugador_, a, profundidad-1, accion, alpha, beta);
-            if(betaaux < beta)
-                    beta = betaaux;
-            if(beta<alpha)
-                i=8;
+        nextEnv = actual_.GenerateNextMove(act);
+        while (!(nextEnv==actual_))
+        {
+            aux = Poda_AlfaBeta(nextEnv, jugador_, profundidad+1, proflimite, accion, alpha, beta);
+            if(profundidad%2==0)
+            {
+                if(aux>alpha)
+                {
+                    alpha = aux;
+                    if(profundidad==0)
+                        accion = static_cast<Environment::ActionType>(act);
+                }
+                if(aux>beta)
+                {
+                    break;
+                }
+            }
+            else
+            {
+                if(aux<beta)
+                {
+                    beta = aux;
+                }
+                if(aux<alpha)
+                {
+                    break;
+                }
+            }
+            nextEnv= actual_.GenerateNextMove(act);
+            if(profundidad==0)
+                cout << "Para el movimiento " << act-1 << " Valor MinMax = "<< aux <<" Nº iteraciones = " << contador << endl;
         }
-        return beta;
+        if (profundidad%2==0)
+            return alpha;
+        else
+            return beta;
     }
 }
+
+
 
 
 
@@ -176,7 +181,7 @@ Environment::ActionType Player::Think(){
     cout << endl;
 
 
-    //--------------------- COMENTAR Desde aqui
+    /*//--------------------- COMENTAR Desde aqui
     cout << "\n\t";
     int n_opciones=0;
     JuegoAleatorio(aplicables, opciones, n_opciones);
@@ -199,7 +204,7 @@ Environment::ActionType Player::Think(){
             accion = static_cast< Environment::ActionType > (opciones[aleatorio]);
          }
 
-    //--------------------- COMENTAR Hasta aqui
+    //--------------------- COMENTAR Hasta aqui*/
 
 
     //--------------------- AQUI EMPIEZA LA PARTE A REALIZAR POR EL ALUMNO ------------------------------------------------
@@ -207,7 +212,7 @@ Environment::ActionType Player::Think(){
 
     // Opcion: Poda AlfaBeta
     // NOTA: La parametrizacion es solo orientativa
-     valor = Poda_AlfaBeta(actual_, jugador_, 0, PROFUNDIDAD_ALFABETA, accion, alpha, beta);
+     valor = Poda_AlfaBeta(actual_, jugador_, 0, PROFUNDIDAD_ALFABETA, accion, menosinf, masinf);
     cout << "Valor MiniMax: " << valor << "  Accion: " << actual_.ActionStr(accion) << endl;
 
     return accion;

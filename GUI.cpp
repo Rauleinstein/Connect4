@@ -2,7 +2,7 @@
 #include<sstream>
 #include<iomanip>
 #include<iostream>
-#include<windows.h>
+//#include<windows.h>
 //#include<netdb.h>
 using namespace std;
 #include"GUI.h"
@@ -168,7 +168,7 @@ int GUI::startDraw(int argc,char **argv){
 		new GLUI_StaticText(main_glui,"");//以空白行做分隔
 		new GLUI_StaticText(main_glui,"");//以空白行做分隔
 
-		quit_btn = new GLUI_Button(main_glui,"Salir",0,(GLUI_Update_CB)exit );//QUIT按鈕結束程式
+		quit_btn = new GLUI_Button(main_glui,"Salir",0,(GLUI_Update_CB)exit );//QUIT
 	main_glui->set_main_gfx_window( main_window );
 	newGame();
 	glutMainLoop();
@@ -225,7 +225,7 @@ void GUI::showScore(){
 
     sout.str("");
     if (env->JuegoTerminado()){
-        int ganador=env->RevisarTablero();
+        int ganador=env->RevisarTablero2();
         if (ganador==2)
           sout<<"GANA EL JUGADOR AZUL"<<endl;
         else if (ganador==1)
@@ -733,7 +733,7 @@ void GUI::do_move(int accion){
     env->AcceptAction(static_cast<Environment::ActionType> (accion));
 
 	myGlutDisplay();
-	Sleep(100);
+	//Sleep(100);
 
     env->ChangePlayer();
 
@@ -749,7 +749,7 @@ void GUI::doOneRun(){
 	while(!Juego_Terminado()){
 		doOneStep();
 	    myGlutDisplay();
-	    Sleep(100);
+	    //Sleep(100);
 	    //glutMainLoop();
 
 	}
@@ -979,7 +979,7 @@ void GUI::newGame(){
                   glutPostRedisplay();
                   glutSetWindow(main_window);
                   glutPostRedisplay();
-                  Sleep(10);
+                  //Sleep(10);
 
                   glutTimerFunc(1000,myGlutTimer,10);
                 }
@@ -1019,7 +1019,7 @@ void GUI::newGame(){
                   glutPostRedisplay();
                   glutSetWindow(main_window);
                   glutPostRedisplay();
-                  Sleep(10);
+                  //Sleep(10);
 
                   glutTimerFunc(1000,myGlutTimer,10);
                 }
@@ -1060,7 +1060,7 @@ void GUI::newGame(){
                   glutPostRedisplay();
                   glutSetWindow(main_window);
                   glutPostRedisplay();
-                  Sleep(10);
+                  //Sleep(10);
 
                   glutTimerFunc(1000,myGlutTimer,10);
                 }

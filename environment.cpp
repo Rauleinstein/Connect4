@@ -497,6 +497,24 @@ int Environment::RevisarTablero() const{
     for (int i=0; !cuatro_en_raya and i<7; i++)
       for (int j=0; !cuatro_en_raya and j<7; j++){
           if (maze_[i][j]!=0)
+            cuatro_en_raya=EnLinea(i,j,ganador);
+      }
+
+    if (cuatro_en_raya)
+       return ganador;
+    else
+       return 0;
+}
+
+
+// -----------------------------------------------------------
+int Environment::RevisarTablero2() const{
+    bool cuatro_en_raya=false;
+    int ganador;
+
+    for (int i=0; !cuatro_en_raya and i<7; i++)
+      for (int j=0; !cuatro_en_raya and j<7; j++){
+          if (maze_[i][j]!=0)
             cuatro_en_raya=EnLinea2(i,j,ganador);
       }
 
@@ -505,6 +523,7 @@ int Environment::RevisarTablero() const{
     else
        return 0;
 }
+
 // -----------------------------------------------------------
 bool Environment::operator==(const Environment & env) const{
     bool iguales=true;
@@ -515,6 +534,16 @@ bool Environment::operator==(const Environment & env) const{
     return iguales;
 }
 
+
+
+void Environment::PintaTablero()const{
+  for (int row=6; row>=0; row--){
+     for (int col=0; col<7; col++){
+        cout << (char) (maze_[row][col]+48);
+     }
+    cout << endl;
+  }
+}
 
 
 string Environment::ActionStr(ActionType action)

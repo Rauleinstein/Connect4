@@ -6,6 +6,7 @@
 #include <fstream>
 using namespace std;
 
+//#include "agent.h"
 // -----------------------------------------------------------
 //				class Environment
 // -----------------------------------------------------------
@@ -39,7 +40,7 @@ public:
 	void AcceptAction(ActionType accion);
 	bool EnLinea(int fila, int columna, int &ganador) const;
 	bool EnLinea2(int fila, int columna, int &ganador) const;
-
+    void PintaTablero() const;
 
 
 
@@ -55,7 +56,7 @@ public:
 
 	// Este metodo genera el siguiente movimiento que se puede realizar el jugador al que le toca jugar sobre el tablero actual
 	// devolviendolo como un objeto de esta misma clase. El parametro "act" indica cual fue el ultimo movimiento que se realizo
-	// sobre el tablero. Este metodo asume el siguiente orden en la aplicacion de las acciones: 0 PUT 1, 1 PUT 2, ...,
+	// sobre el tablero. Este metodo asume el siguiente orden en la aplicacion de las acciones: 0 PUT 1, 1 PUT 2, ..., 
 	// 6 PUT7. Si no hay un siguiente movimiento, el metodo devuelve como tablero el actual.
 	// La primera vez que se invoca en un nuevo estado se le pasa como argumento en act el valor -1.
 	Environment GenerateNextMove(int &act) const;
@@ -67,7 +68,7 @@ public:
     int possible_actions(bool *VecAct) const;
 
     // Indica la ultima accion que se aplico para llegar a la situacion actual del tablero. El entero que se devuelve es el
-    // ordinal de la acción.
+    // ordinal de la acción. 
     int Last_Action(int jug) const;
 
 
@@ -75,7 +76,7 @@ public:
     string ActionStr(ActionType action);
 
     // Devuelve el jugador al que le toca jugar, siendo 1 el jugador Verde y 2 el jugador Azul.
-    int JugadorActivo(){return jugador_activo_;}
+    int JugadorActivo()const {return jugador_activo_;}
 
     // Indica el nivel de ocupacion de una determinada columna
     int Get_Ocupacion_Columna(int columna) const {return tope_[columna];}
@@ -91,6 +92,10 @@ public:
 
 	// Cuando el juego esta terminado devuelve quien ha ganado: 0 Empate, 1 Gana Jugador 1, 2 Gana Jugador2.
 	int RevisarTablero() const;
+
+
+	// Cuando el juego esta terminado devuelve quien ha ganado: 0 Empate, 1 Gana Jugador 1, 2 Gana Jugador2.
+	int RevisarTablero2() const;
 
 
 private:
