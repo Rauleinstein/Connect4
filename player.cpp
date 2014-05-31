@@ -52,10 +52,404 @@ double ValoracionTest(const Environment &estado, int jugador){
 }
 
 // ------------------- Los tres metodos anteriores no se pueden modificar
+/** \brief OneOutFour es una función que para cada casilla vacía mira las de alrededor y
+ *   añade un punto a cada jugador por cada ficha del jugador
+ *
+ * \param tablero El estado actual del tablero a evaluar
+ * \param jugador Jugador activo
+ * \param pjugador (Por referencia) puntuación del jugador activo
+ * \param poponente (Por referencia) puntuación del jugador oponente
+ * \return
+ *
+ */
+
+void oneoutfour(const Environment &tablero, int jugador, double &pjugador, double &poponente)
+{
+    for(int i=0; i<7; i++)
+    {
+        for(int j=0; j<7; j++)
+        {
+            if(tablero.See_Casilla(i, j)==0)
+            {
+                if(i>0 && j>0)
+                {
+                    if(tablero.See_Casilla(i-1, j-1)==jugador)
+                        pjugador++;
+                    else if(tablero.See_Casilla(i-1, j-1)==0)
+                        true;
+                    else
+                        poponente++;
+                }
+                if(i>0)
+                {
+                     if(tablero.See_Casilla(i-1, j)==jugador)
+                        pjugador++;
+                    else if(tablero.See_Casilla(i-1, j)==0)
+                        true;
+                    else
+                        poponente++;
+                }
+                if(i>0 && j<6)
+                {
+                    if(tablero.See_Casilla(i-1, j+1)==jugador)
+                        pjugador++;
+                    else if(tablero.See_Casilla(i-1, j+1)==0)
+                        true;
+                    else
+                        poponente++;
+                }
+                if(i<6 && j<6)
+                {
+                     if(tablero.See_Casilla(i+1, j+1)==jugador)
+                        pjugador++;
+                    else if(tablero.See_Casilla(i+1, j+1)==0)
+                        true;
+                    else
+                        poponente++;
+                }
+                if(i<6)
+                {
+                     if(tablero.See_Casilla(i+1, j)==jugador)
+                        pjugador++;
+                    else if(tablero.See_Casilla(i+1, j)==0)
+                        true;
+                    else
+                        poponente++;
+                }
+                if(i<6 && j>0)
+                {
+                     if(tablero.See_Casilla(i+1, j-1)==jugador)
+                        pjugador++;
+                    else if(tablero.See_Casilla(i+1, j-1)==0)
+                        true;
+                    else
+                        poponente++;
+                }
+                if(j>0)
+                {
+                     if(tablero.See_Casilla(i, j-1)==jugador)
+                        pjugador++;
+                    else if(tablero.See_Casilla(i, j-1)==0)
+                        true;
+                    else
+                        poponente++;
+                }
+                if(j<6)
+                {
+                     if(tablero.See_Casilla(i, j+1)==jugador)
+                        pjugador++;
+                    else if(tablero.See_Casilla(i, j+1)==0)
+                        true;
+                    else
+                        poponente++;
+                }
+            }
+        }
+    }
+
+}
+/** \brief TwoOutFour es una función que para cada casilla vacía mira las lineas de 2 que hay alrededor y
+ *   añade un valor wplayer o wopo a cada jugador por cada ficha del jugador
+ *
+ * \param tablero El estado actual del tablero a evaluar
+ * \param jugador Jugador activo
+ * \param pjugador (Por referencia) puntuación del jugador activo
+ * \param poponente (Por referencia) puntuación del jugador oponente
+ * \return
+ *
+ */
+void twooutfour(const Environment &tablero, int jugador, double &pjugador, double &poponente)
+{
+    int wplayer = 10, wopo = 5;
+    int oponente;
+    if(jugador == 1)
+        oponente = 2;
+    else
+        oponente = 1;
+
+    for(int i=0; i<7; i++)
+    {
+        for(int j=0; j<7; j++)
+        {
+            if(tablero.See_Casilla(i, j)==0)
+            {
+                if(i>1 && j>1)
+                {
+                    if(tablero.See_Casilla(i-1, j-1)==jugador && tablero.See_Casilla(i-2, j-2)==jugador)
+                        pjugador += wplayer;
+                    if(tablero.See_Casilla(i-1, j-1)==oponente && tablero.See_Casilla(i-2, j-2)==oponente)
+                        poponente += wopo;
+
+                }
+                if(i>1 && j>1 && i<6 && j<6)
+                {
+                    if(tablero.See_Casilla(i-1, j-1)==jugador && tablero.See_Casilla(i+1, j+1)==jugador)
+                        pjugador += wplayer;
+                    if(tablero.See_Casilla(i-1, j-1)==oponente && tablero.See_Casilla(i+1, j+1)==oponente)
+                        poponente += wopo;
+                    if(tablero.See_Casilla(i-1, j+1)==jugador && tablero.See_Casilla(i+1, j-1)==jugador)
+                        pjugador += wplayer;
+                    if(tablero.See_Casilla(i-1, j+1)==oponente && tablero.See_Casilla(i+1, j-1)==oponente)
+                        poponente += wopo;
+                    if(tablero.See_Casilla(i+1, j-1)==jugador && tablero.See_Casilla(i-1, j+1)==jugador)
+                        pjugador += wplayer;
+                    if(tablero.See_Casilla(i+1, j-1)==oponente && tablero.See_Casilla(i-1, j+1)==oponente)
+                        poponente += wopo;
+                    if(tablero.See_Casilla(i+1, j+1)==jugador && tablero.See_Casilla(i-1, j-1)==jugador)
+                        pjugador += wplayer;
+                    if(tablero.See_Casilla(i+1, j+1)==oponente && tablero.See_Casilla(i-1, j-1)==oponente)
+                        poponente += wopo;
+                }
+                if(i>1 && j<5)
+                {
+                    if(tablero.See_Casilla(i-1, j+1)==jugador && tablero.See_Casilla(i-2, j+2)==jugador)
+                        pjugador += wplayer;
+                    if(tablero.See_Casilla(i-1, j+1)==oponente && tablero.See_Casilla(i-2, j+2)==oponente)
+                        poponente += wopo;
+
+                }
+                if(i<5 && j>1)
+                {
+                    if(tablero.See_Casilla(i+1, j-1)==jugador && tablero.See_Casilla(i+2, j-2)==jugador)
+                        pjugador += wplayer;
+                    if(tablero.See_Casilla(i+1, j-1)==oponente && tablero.See_Casilla(i+2, j-2)==oponente)
+                        poponente += wopo;
+                }
+                if(i<5 && j<5)
+                {
+                    if(tablero.See_Casilla(i+1, j+1)==jugador && tablero.See_Casilla(i+2, j+2)==jugador)
+                        pjugador += wplayer;
+                    if(tablero.See_Casilla(i+1, j+1)==oponente && tablero.See_Casilla(i+2, j+2)==oponente)
+                        poponente += wopo;
+                }
+                if(j>1)
+                {
+                    if(tablero.See_Casilla(i, j-1)==jugador && tablero.See_Casilla(i, j-2)==jugador)
+                        pjugador += wplayer;
+                    if(tablero.See_Casilla(i, j-1)==oponente && tablero.See_Casilla(i, j-2)==oponente)
+                        poponente += wopo;
+                }
+                if(j>1 && j<6)
+                {
+                    if(tablero.See_Casilla(i, j-1)==jugador && tablero.See_Casilla(i, j+1)==jugador)
+                        pjugador += wplayer;
+                    if(tablero.See_Casilla(i, j-1)==oponente && tablero.See_Casilla(i, j+1)==oponente)
+                        poponente += wopo;
+                    if(tablero.See_Casilla(i, j+1)==jugador && tablero.See_Casilla(i, j-1)==jugador)
+                        pjugador += wplayer;
+                    if(tablero.See_Casilla(i, j+1)==oponente && tablero.See_Casilla(i, j-1)==oponente)
+                        poponente += wopo;
+                }
+                if(i>1)
+                {
+                    if(tablero.See_Casilla(i-1, j)==jugador && tablero.See_Casilla(i-2, j)==jugador)
+                        pjugador += wplayer;
+                    if(tablero.See_Casilla(i-1, j)==oponente && tablero.See_Casilla(i-2, j)==oponente)
+                        poponente += wopo;
+
+                }
+                if(i>1 && i<6)
+                {
+                    if(tablero.See_Casilla(i-1, j)==jugador && tablero.See_Casilla(i+1, j)==jugador)
+                        pjugador += wplayer;
+                    if(tablero.See_Casilla(i-1, j)==oponente && tablero.See_Casilla(i+1, j)==oponente)
+                        poponente += wopo;
+                    if(tablero.See_Casilla(i+1, j)==jugador && tablero.See_Casilla(i-1, j)==jugador)
+                        pjugador += wplayer;
+                    if(tablero.See_Casilla(i+1, j)==oponente && tablero.See_Casilla(i-1, j)==oponente)
+                        poponente += wopo;
+                }
+                if(j<5)
+                {
+                    if(tablero.See_Casilla(i, j+1)==jugador && tablero.See_Casilla(i, j+2)==jugador)
+                        pjugador += wplayer;
+                    if(tablero.See_Casilla(i, j+1)==oponente && tablero.See_Casilla(i, j+2)==oponente)
+                        poponente += wopo;
+                }
+                if(i<5)
+                {
+                    if(tablero.See_Casilla(i+1, j)==jugador && tablero.See_Casilla(i+2, j)==jugador)
+                        pjugador += wplayer;
+                    if(tablero.See_Casilla(i+1, j)==oponente && tablero.See_Casilla(i+2, j)==oponente)
+                        poponente += wopo;
+                }
+            }
+        }
+    }
+}
+/** \brief TwoOutFour es una función que para cada casilla vacía mira las lineas de 3 que hay alrededor y
+ *   añade un valor wplayer o wopo a cada jugador por cada ficha del jugador
+ *
+ * \param tablero El estado actual del tablero a evaluar
+ * \param jugador Jugador activo
+ * \param pjugador (Por referencia) puntuación del jugador activo
+ * \param poponente (Por referencia) puntuación del jugador oponente
+ * \return
+ *
+ */
+void threeoutfour(const Environment &tablero, int jugador, double &pjugador, double &poponente)
+{
+    int wplayer = 100, wopo = 50;
+    int oponente;
+    if(jugador == 1)
+        oponente = 2;
+    else
+        oponente = 1;
+
+    for(int i=0; i<7; i++)
+    {
+        for(int j=0; j<7; j++)
+        {
+            if(tablero.See_Casilla(i, j)==0)
+            {
+                if(i>2 && j>2)
+                {
+                    if(tablero.See_Casilla(i-1, j-1)==jugador && tablero.See_Casilla(i-2, j-2)==jugador && tablero.See_Casilla(i-3, j-3)==jugador)
+                        pjugador += wplayer;
+                    if(tablero.See_Casilla(i-1, j-1)==oponente && tablero.See_Casilla(i-2, j-2)==oponente && tablero.See_Casilla(i-3, j-3)==oponente)
+                        poponente += wopo;
+                }
+                if(i>1 && j>1 && i<6 && j<6)
+                {
+                    if(tablero.See_Casilla(i-1, j-1)==jugador && tablero.See_Casilla(i-2, j-2)==jugador && tablero.See_Casilla(i+1, j+1)==jugador)
+                        pjugador += wplayer;
+                    if(tablero.See_Casilla(i-1, j-1)==oponente && tablero.See_Casilla(i-2, j-2)==oponente && tablero.See_Casilla(i+1, j+1)==oponente)
+                        poponente += wopo;
+                }
+                if(i>2 && j<4)
+                {
+                    if(tablero.See_Casilla(i-1, j+1)==jugador && tablero.See_Casilla(i-2, j+2)==jugador && tablero.See_Casilla(i-3, j+3)==jugador)
+                        pjugador += wplayer;
+                    if(tablero.See_Casilla(i-1, j+1)==oponente && tablero.See_Casilla(i-2, j+2)==oponente && tablero.See_Casilla(i-3, j+3)==oponente)
+                        poponente += wopo;
+                }
+                if(i>1 && j<5 && j>1 && i<6)
+                {
+                    if(tablero.See_Casilla(i-1, j+1)==jugador && tablero.See_Casilla(i-2, j+2)==jugador && tablero.See_Casilla(i+1, j-1)==jugador)
+                        pjugador += wplayer;
+                    if(tablero.See_Casilla(i-1, j+1)==oponente && tablero.See_Casilla(i-2, j+2)==oponente && tablero.See_Casilla(i+1, j-1)==oponente)
+                        poponente += wopo;
+                }
+                if(i<4 && j>2)
+                {
+                    if(tablero.See_Casilla(i+1, j-1)==jugador && tablero.See_Casilla(i+2, j-2)==jugador && tablero.See_Casilla(i+3, j-3)==jugador)
+                        pjugador += wplayer;
+                    if(tablero.See_Casilla(i+1, j-1)==oponente && tablero.See_Casilla(i+2, j-2)==oponente && tablero.See_Casilla(i+3, j-3)==oponente)
+                        poponente += wopo;
+                }
+                if(i<5 && j>1 && j<6 && i>1)
+                {
+                    if(tablero.See_Casilla(i+1, j-1)==jugador && tablero.See_Casilla(i+2, j-2)==jugador && tablero.See_Casilla(i-1, j+1)==jugador)
+                        pjugador += wplayer;
+                    if(tablero.See_Casilla(i+1, j-1)==oponente && tablero.See_Casilla(i+2, j-2)==oponente && tablero.See_Casilla(i-1, j+1)==oponente)
+                        poponente += wopo;
+                }
+                if(i<4 && j<4)
+                {
+                    if(tablero.See_Casilla(i+1, j+1)==jugador && tablero.See_Casilla(i+2, j+2)==jugador && tablero.See_Casilla(i+3, j+3)==jugador)
+                        pjugador += wplayer;
+                    if(tablero.See_Casilla(i+1, j+1)==oponente && tablero.See_Casilla(i+2, j+2)==oponente && tablero.See_Casilla(i+3, j+3)==oponente)
+                        poponente += wopo;
+                }
+                if(i<5 && j<5 && j>1 && i>1)
+                {
+                    if(tablero.See_Casilla(i+1, j+1)==jugador && tablero.See_Casilla(i+2, j+2)==jugador && tablero.See_Casilla(i-1, j-1)==jugador)
+                        pjugador += wplayer;
+                    if(tablero.See_Casilla(i+1, j+1)==oponente && tablero.See_Casilla(i+2, j+2)==oponente && tablero.See_Casilla(i-1, j-1)==oponente)
+                        poponente += wopo;
+                }
+                if(j>2)
+                {
+                    if(tablero.See_Casilla(i, j-1)==jugador && tablero.See_Casilla(i, j-2)==jugador && tablero.See_Casilla(i, j-3)==jugador)
+                        pjugador += wplayer;
+                    if(tablero.See_Casilla(i, j-1)==oponente && tablero.See_Casilla(i, j-2)==oponente && tablero.See_Casilla(i, j-3)==oponente)
+                        poponente += wopo;
+                }
+                if(j>1 && j<6)
+                {
+                    if(tablero.See_Casilla(i, j-1)==jugador && tablero.See_Casilla(i, j-2)==jugador && tablero.See_Casilla(i, j+1)==jugador)
+                        pjugador += wplayer;
+                    if(tablero.See_Casilla(i, j-1)==oponente && tablero.See_Casilla(i, j-2)==oponente && tablero.See_Casilla(i, j+1)==oponente)
+                        poponente += wopo;
+                }
+                if(i>2)
+                {
+                    if(tablero.See_Casilla(i-1, j)==jugador && tablero.See_Casilla(i-2, j)==jugador && tablero.See_Casilla(i-3, j)==jugador)
+                        pjugador += wplayer;
+                    if(tablero.See_Casilla(i-1, j)==oponente && tablero.See_Casilla(i-2, j)==oponente && tablero.See_Casilla(i-3, j)==oponente)
+                        poponente += wopo;
+                }
+                if(i>1 && i<6)
+                {
+                    if(tablero.See_Casilla(i-1, j)==jugador && tablero.See_Casilla(i-2, j)==jugador && tablero.See_Casilla(i+1, j)==jugador)
+                        pjugador += wplayer;
+                    if(tablero.See_Casilla(i-1, j)==oponente && tablero.See_Casilla(i-2, j)==oponente && tablero.See_Casilla(i+1, j)==oponente)
+                        poponente += wopo;
+                }
+                if(j<4)
+                {
+                    if(tablero.See_Casilla(i, j+1)==jugador && tablero.See_Casilla(i, j+2)==jugador && tablero.See_Casilla(i, j+3)==jugador)
+                        pjugador += wplayer;
+                    if(tablero.See_Casilla(i, j+1)==oponente && tablero.See_Casilla(i, j+2)==oponente && tablero.See_Casilla(i, j+3)==oponente)
+                        poponente += wopo;
+                }
+                if(i<4)
+                {
+                    if(tablero.See_Casilla(i+1, j)==jugador && tablero.See_Casilla(i+2, j)==jugador && tablero.See_Casilla(i+3, j)==jugador)
+                        pjugador += wplayer;
+                    if(tablero.See_Casilla(i+1, j)==oponente && tablero.See_Casilla(i+2, j)==oponente && tablero.See_Casilla(i+3, j)==oponente)
+                        poponente += wopo;
+                }
+                if(j<5 && j>1)
+                {
+                    if(tablero.See_Casilla(i, j+1)==jugador && tablero.See_Casilla(i, j+2)==jugador && tablero.See_Casilla(i, j-1)==jugador)
+                        pjugador += wplayer;
+                    if(tablero.See_Casilla(i, j+1)==oponente && tablero.See_Casilla(i, j+2)==oponente && tablero.See_Casilla(i, j-1)==oponente)
+                        poponente += wopo;
+                }
+                if(i<5 && i>1)
+                {
+                    if(tablero.See_Casilla(i+1, j)==jugador && tablero.See_Casilla(i+2, j)==jugador && tablero.See_Casilla(i-1, j)==jugador)
+                        pjugador += wplayer;
+                    if(tablero.See_Casilla(i+1, j)==oponente && tablero.See_Casilla(i+2, j)==oponente && tablero.See_Casilla(i-1, j)==oponente)
+                        poponente += wopo;
+                }
+            }
+        }
+    }
+}
+
+double PuntuacionPropia(int jugador, const Environment &tablero){
+    double puntuacion=0, pjugador=0, poponente=0;
+    oneoutfour(tablero, jugador, pjugador, poponente);
+    twooutfour(tablero, jugador, pjugador, poponente);
+    threeoutfour(tablero, jugador, pjugador, poponente);
+    puntuacion = pjugador - poponente;
+    return puntuacion;
+}
+
 
 
 // Funcion heuristica (ESTA ES LA QUE TENEIS QUE MODIFICAR)
-double Valoracion(const Environment &estado, int jugador){
+/** \brief Función Valoración implementa la heurística que va a definir el valor de un tablero en función del jugador que juega
+ *
+ * \param estado Tablero a valorar
+ * \param jugador entero con el jugador que está jugando
+ * \return double con la valoración del tablero
+ */
+
+double Valoracion(const Environment &estado, int jugador)
+{
+    int ganador = estado.RevisarTablero();
+
+    if (ganador==jugador)
+        return 99999999.0; // Gana el jugador que pide la valoracion
+    else if (ganador!=0)
+        return -99999999.0; // Pierde el jugador que pide la valoracion
+    else if (estado.Get_Casillas_Libres()==0)
+        return 0;  // Hay un empate global y se ha rellenado completamente el tablero
+    else
+        return PuntuacionPropia(jugador,estado);
 }
 
 /** \brief Función Poda_AlfaBeta implementa el algoritmo Minimax con la poda alfa-beta. Se ha implementado recursivamente
@@ -73,14 +467,14 @@ double Valoracion(const Environment &estado, int jugador){
  static int contador=0;
 double Poda_AlfaBeta(const Environment &actual_, int jugador_, int profundidad, int proflimite, Environment::ActionType &accion, double alpha, double beta)
 {
-    contador++;
     Environment nextEnv;
     double aux;
     int act = -1;
     int i, ganador = actual_.RevisarTablero();
     if(profundidad == proflimite ||  ganador!=0) //Si la profundidad es 0 se devuelve la ValoracionTest
     {
-        return ValoracionTest(actual_, jugador_);
+        contador++;
+        return Valoracion(actual_, jugador_);
     }
     else
     {
@@ -96,7 +490,7 @@ double Poda_AlfaBeta(const Environment &actual_, int jugador_, int profundidad, 
                     if(profundidad==0)
                         accion = static_cast<Environment::ActionType>(act);
                 }
-                if(aux>beta)
+                if(beta<=alpha)
                 {
                     break;
                 }
@@ -107,7 +501,7 @@ double Poda_AlfaBeta(const Environment &actual_, int jugador_, int profundidad, 
                 {
                     beta = aux;
                 }
-                if(aux<alpha)
+                if(beta<=alpha)
                 {
                     break;
                 }
@@ -212,7 +606,9 @@ Environment::ActionType Player::Think(){
 
     // Opcion: Poda AlfaBeta
     // NOTA: La parametrizacion es solo orientativa
-     valor = Poda_AlfaBeta(actual_, jugador_, 0, PROFUNDIDAD_ALFABETA, accion, menosinf, masinf);
+    //cout << "Estado con valor = " << PuntuacionPropia(jugador_, actual_) << endl;
+    valor = Poda_AlfaBeta(actual_, jugador_, 0, PROFUNDIDAD_ALFABETA, accion, menosinf, masinf);
+    contador=0;
     cout << "Valor MiniMax: " << valor << "  Accion: " << actual_.ActionStr(accion) << endl;
 
     return accion;
